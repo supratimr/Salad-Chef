@@ -129,4 +129,4 @@ MonoBehaviour:
   mSpeed: 1.2
   mHorizontalAxis: Horizontal_PM
   mVerticalAxis: Vertical_PM
-  mActionKey: 
+  mAction: Action_PM
