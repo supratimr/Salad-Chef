@@ -29,6 +29,7 @@ using UnityEngine;
     {
         public string SaladName;
         public Sprite Icon;
+        public int Cost = 10;
         public List<IngredientTypes> IngredientList = new List<IngredientTypes>();
     }
 
