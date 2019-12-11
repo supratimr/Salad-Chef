@@ -34,7 +34,7 @@ using UnityEngine;
     [CreateAssetMenu(fileName = "SaladIngredientConfig", menuName = "Config/SaladIngredientConfig", order = 1)]
     public class SaladIngredientConfig: ScriptableObject
     {
-        public IngredientData[] IngredientData;
-        public Salad[] SaladData;
+    public List<IngredientData> IngredientData = new List<IngredientData>();
+        public List<Salad> SaladData = new List<Salad>();
     }
 

@@ -14,11 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaladIngredientConfig
   IngredientData:
   - Type: 0
-    DisplayName: 
-    MainObject: {fileID: 0}
+    DisplayName: Fresh Cucumber
+    MainObject: {fileID: 100000, guid: d25f704bfb4c8014393d28319f51d9e9, type: 3}
     ChoppedObject: {fileID: 0}
-    Icon: {fileID: 0}
-    ChopDuration: 0
+    Icon: {fileID: 21300000, guid: 65d453b0ea67ed54a822c07496df1095, type: 3}
+    ChopDuration: 10
+  - Type: 1
+    DisplayName: Yummy Tomato
+    MainObject: {fileID: 100000, guid: 3c8726c7ba21fc64fbc2a8a1dd83be57, type: 3}
+    ChoppedObject: {fileID: 0}
+    Icon: {fileID: 21300000, guid: ce82d4ca6f8abc9418fb60d117f7f8f3, type: 3}
+    ChopDuration: 10
+  - Type: 2
+    DisplayName: Wow Broccoli
+    MainObject: {fileID: 100000, guid: 8f3f2404a883f5949a22eb1182951c9e, type: 3}
+    ChoppedObject: {fileID: 0}
+    Icon: {fileID: 21300000, guid: a8c818cb1f4eb2e48a8f21690591f595, type: 3}
+    ChopDuration: 10
+  - Type: 3
+    DisplayName: Best Carrot
+    MainObject: {fileID: 100000, guid: 70e1fcdcfea29ed48bc3e9dc739bb684, type: 3}
+    ChoppedObject: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 36bc3e8744e196648b7a969e8da5978a, type: 3}
+    ChopDuration: 10
+  - Type: 4
+    DisplayName: Healthy Avocado
+    MainObject: {fileID: 100000, guid: a77e30de2eb4e0249ae881ea7e042b0a, type: 3}
+    ChoppedObject: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 51fc3e64ff3a1b44e9a50e98a6e269ab, type: 3}
+    ChopDuration: 10
+  - Type: 5
+    DisplayName: Juicy Apple
+    MainObject: {fileID: 100000, guid: 094627802cc8b7849aed1eb1a64bbe75, type: 3}
+    ChoppedObject: {fileID: 0}
+    Icon: {fileID: 21300000, guid: d18067d498287884c87b233b1f85c3fb, type: 3}
+    ChopDuration: 10
   SaladData:
   - SaladName: Salad 01
     Icon: {fileID: 0}

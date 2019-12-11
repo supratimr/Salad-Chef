@@ -1,79 +1,122 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-namespace SaladChef
+
+[RequireComponent(typeof(CharacterController))]
+public class PlayerController : MonoBehaviour
 {
-    [RequireComponent(typeof(CharacterController))]
-    public class PlayerController : MonoBehaviour
+    public class ActiveIngredientData
     {
-        [Header("Data")]
-        [SerializeField]
-        private string mPlayerName = string.Empty;
-        [SerializeField]
-        private float mSpeed = default;
+        IngredientData Data;
+        GameObject Object;
 
-        [Header("Movement")]
-        [SerializeField]
-        private string mHorizontalAxis = string.Empty;
-        [SerializeField]
-        private string mVerticalAxis = string.Empty;
-        [SerializeField]
-        private string mAction = string.Empty;
-
-        private CharacterController mCharController;
-        private bool mAllowInput;
-        private bool mInitialized;
-
-        private Collider mCurrentCollider;
-
-        void Start()
+        public ActiveIngredientData(IngredientData data, GameObject obj)
         {
-            mCharController = GetComponent<CharacterController>();
-            mInitialized = true;
-            StopPlayerMovement(false);
+            Data = data;
+            Object = obj;
         }
+    }
 
-        public void StopPlayerMovement(bool value)
+    [SerializeField]
+    private string mPlayerName = string.Empty;
+    [SerializeField]
+    private float mSpeed = default;
+
+    [SerializeField]
+    private string mHorizontalAxis = string.Empty;
+    [SerializeField]
+    private string mVerticalAxis = string.Empty;
+    [SerializeField]
+    private string mAction = string.Empty;
+    [SerializeField]
+    private int mMaxPickupCount = 2;
+    [SerializeField]
+    private float mPickupPositionMultiplier = 1.5f;
+
+    private CharacterController mCharController;
+    private bool mAllowInput;
+    private bool mInitialized;
+
+    private Collider mCurrentCollider;
+    private Queue<ActiveIngredientData> mIngredientPicked = new Queue<ActiveIngredientData>();
+
+    void Start()
+    {
+        mCharController = GetComponent<CharacterController>();
+        mInitialized = true;
+        StopPlayerMovement(false);
+    }
+
+    public void StopPlayerMovement(bool value)
+    {
+        mAllowInput = !value;
+    }
+
+    void Update()
+    {
+        HandleInput();
+    }
+
+    public void UpdateSpeed(float speed)
+    {
+        mSpeed = speed;
+    }
+
+    private void HandleInput()
+    {
+        if (mAllowInput && mInitialized)
         {
-            mAllowInput = !value;
+            Vector3 displacement = new Vector3(Input.GetAxis(mHorizontalAxis), 0, Input.GetAxis(mVerticalAxis)) * mSpeed * Time.deltaTime;
+            mCharController.Move(displacement);
+
+            if (Input.GetButtonDown(mAction))
+                OnPlayerInteraction();
         }
+    }
 
-        void Update()
+    private void OnPlayerInteraction()
+    {
+        ICollider coll = mCurrentCollider.GetComponent<ICollider>();
+        ColliderType type = coll.GetColliderType();
+
+        Debug.Log("on player action:: " + name + " ::type:: " + type);
+
+        switch (type)
         {
-            HandleInput();
+            case ColliderType.IngredientPlate:
+                PickupIngredient();
+                break;
         }
+    }
 
-        public void UpdateSpeed(float speed)
+    private void OnTriggerEnter(Collider collider)
+    {
+        mCurrentCollider = collider;
+        Debug.Log("collider enter:: " + mCurrentCollider.name);
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        Debug.Log("collider exit:: " + collider.name);
+        mCurrentCollider = null;            
+    }
+
+    private void PickupIngredient()
+    {
+        if (mIngredientPicked.Count >= mMaxPickupCount)
+            return;
+
+        IngredientData data = mCurrentCollider.GetComponent<IngredientPlate>().IngredientData;
+
+        if (data.MainObject)
         {
-            mSpeed = speed;
-        }
+            GameObject obj = Instantiate(data.MainObject, transform);            
+            ActiveIngredientData iData = new ActiveIngredientData(data, obj);
 
-        private void HandleInput()
-        {
-            if (mAllowInput && mInitialized)
-            {
-                Vector3 displacement = new Vector3(Input.GetAxis(mHorizontalAxis), 0, Input.GetAxis(mVerticalAxis)) * mSpeed * Time.deltaTime;
-                mCharController.Move(displacement);
+            mIngredientPicked.Enqueue(iData);
 
-                if (Input.GetButtonDown(mAction))
-                    OnPlayerInteraction();
-            }
-        }
-
-        private void OnPlayerInteraction()
-        {
-            Debug.Log("on player action:: " + name);
-        }
-
-        private void OnTriggerEnter(Collider collider)
-        {
-            mCurrentCollider = collider;
-            Debug.Log("collider enter:: " + mCurrentCollider.name);
-        }
-
-        private void OnTriggerExit(Collider collider)
-        {
-            Debug.Log("collider exit:: " + collider.name);
-            mCurrentCollider = null;            
+            obj.transform.localPosition = Vector3.up * mPickupPositionMultiplier * mIngredientPicked.Count;         
         }
     }
 }
+
