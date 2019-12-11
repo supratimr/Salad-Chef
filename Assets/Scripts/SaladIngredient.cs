@@ -19,6 +19,7 @@ using UnityEngine;
         public string DisplayName;
         public GameObject MainObject;
         public GameObject ChoppedObject;
+        public float ScaleInUse = 1f;
         public Sprite Icon;
         public float ChopDuration;
     }

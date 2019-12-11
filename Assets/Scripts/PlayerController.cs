@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
             Data = data;
             Object = obj;
         }
+
+        public GameObject GetObject()
+        {
+            return Object;
+        }
     }
 
     [SerializeField]
@@ -86,6 +91,10 @@ public class PlayerController : MonoBehaviour
             case ColliderType.IngredientPlate:
                 PickupIngredient();
                 break;
+
+            case ColliderType.ChoppingBoard:
+                DropIngredient();
+                break;
         }
     }
 
@@ -115,7 +124,27 @@ public class PlayerController : MonoBehaviour
 
             mIngredientPicked.Enqueue(iData);
 
-            obj.transform.localPosition = Vector3.up * mPickupPositionMultiplier * mIngredientPicked.Count;         
+            obj.transform.localPosition = Vector3.up * mPickupPositionMultiplier * mIngredientPicked.Count;
+            obj.transform.localScale = Vector3.one * data.ScaleInUse;
+        }
+    }
+
+    private void DropIngredient()
+    {
+        if (mIngredientPicked.Count <= 0)
+            return;
+
+        ActiveIngredientData data = mIngredientPicked.Dequeue();
+        Destroy(data.GetObject());
+
+        if (mIngredientPicked.Count > 0)
+        {            
+           int Idx = 1;
+           foreach(ActiveIngredientData iData in mIngredientPicked.ToArray())
+           {
+               iData.GetObject().transform.localPosition = Vector3.up * mPickupPositionMultiplier * Idx;
+               Idx += 1;
+           }
         }
     }
 }
