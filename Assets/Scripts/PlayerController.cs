@@ -81,6 +81,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerInteraction()
     {
+        if (mCurrentCollider == null)
+            return;
+
         ICollider coll = mCurrentCollider.GetComponent<ICollider>();
         ColliderType type = coll.GetColliderType();
 
@@ -92,7 +95,7 @@ public class PlayerController : MonoBehaviour
                 PickupIngredient();
                 break;
 
-            case ColliderType.ChoppingBoard:
+            case ColliderType.PrepCounter:
                 DropIngredient();
                 break;
         }

@@ -2,7 +2,7 @@
 public enum ColliderType
 {
     IngredientPlate,
-    ChoppingBoard,
+    PrepCounter,
     Trash,
     Customer
 }

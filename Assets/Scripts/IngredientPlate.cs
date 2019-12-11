@@ -31,10 +31,4 @@ public class IngredientPlate : MonoBehaviour, ICollider
     {
         return ColliderType;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

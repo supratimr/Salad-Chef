@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ColliderType: 1
-  ChopBoard: {fileID: 8800009260554166330}
-  ServingBowl: {fileID: 3828443717154806242}
+  ChopBoard: {fileID: 1077357217755869894}
+  ServingBowl: {fileID: 1286094671808864909}
 --- !u!65 &1741503692915917788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62,6 +62,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.25, y: 0.1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0.2}
+--- !u!114 &1286094671808864909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828443717154806242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7a6245a44232f429164fa32ef864a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1077357217755869894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8800009260554166330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67b6927fa97c5d41a9e4257541422e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3174098080599505523
 PrefabInstance:
   m_ObjectHideFlags: 0

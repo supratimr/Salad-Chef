@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrepCounter : MonoBehaviour, ICollider
+public class Trash : MonoBehaviour
 {
     public ColliderType ColliderType;
-    public ChoppingBoard ChopBoard;
-    public ServingPlate ServingBowl;
 
     // Start is called before the first frame update
     void Start()
