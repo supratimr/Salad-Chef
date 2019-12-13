@@ -125,8 +125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30633970afc8abb4481ab9417df94138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mServingBowlObject: {fileID: 2846120601102203187, guid: 3f3939785c3f36c4680ac479637d3700,
+    type: 3}
   mPlayerName: 
   mSpeed: 1.2
   mHorizontalAxis: Horizontal_PF
   mVerticalAxis: Vertical_PF
   mAction: Action_PF
+  mMaxPickupCount: 2
+  mPickupPositionMultiplier: 1.5

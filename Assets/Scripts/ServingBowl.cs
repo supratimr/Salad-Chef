@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class ServingBowl : MonoBehaviour
 {
-    private List<IngredientData> mIngredientList = new List<IngredientData>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<IngredientData> IngredientList { private set; get; }
 
     public void AddSalad(List<IngredientData> list)
     {
-        mIngredientList = list;
+        if (IngredientList == null)
+            IngredientList = new List<IngredientData>();
+
+        IngredientList.AddRange(list);
     }
 }

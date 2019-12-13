@@ -27,7 +27,8 @@ public class ActiveIngredientData
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    
+    [SerializeField]
+    private GameObject mServingBowlObject;
 
     [SerializeField]
     private string mPlayerName = string.Empty;
@@ -48,6 +49,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController mCharController;
     private bool mAllowInput;
     private bool mInitialized;
+
+    private ServingBowl mServingBowl;
 
     private Collider mCurrentCollider;
     private Queue<ActiveIngredientData> mIngredientPicked = new Queue<ActiveIngredientData>();
@@ -105,6 +108,10 @@ public class PlayerController : MonoBehaviour
             case ColliderType.PrepCounter:
                 DropIngredient();
                 break;
+
+            case ColliderType.Customer:
+                ServeToCustomer();
+                break;
         }
     }
 
@@ -122,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     private void PickupIngredient()
     {
-        if (mIngredientPicked.Count >= mMaxPickupCount)
+        if (mIngredientPicked.Count >= mMaxPickupCount || mServingBowl != null)
             return;
 
         IngredientData data = mCurrentCollider.GetComponent<IngredientPlate>().IngredientData;
@@ -143,7 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         PrepCounter counter = mCurrentCollider.GetComponent<PrepCounter>();
 
-        if(counter != null && !counter.InUse)
+        if(counter != null && !counter.InUse && mServingBowl == null)
         {
             if (mIngredientPicked.Count > 0)
             {
@@ -170,11 +177,29 @@ public class PlayerController : MonoBehaviour
         StopPlayerMovement(false);
     }
 
-    private void OnPickupDone(ServingBowl bowl)
-    {
-        if(bowl != null)
+    private void OnPickupDone(List<IngredientData> data)
+    {       
+        GameObject bowlObj = Instantiate<GameObject>(mServingBowlObject, transform);
+        bowlObj.transform.localPosition = Vector3.up * mPickupPositionMultiplier;
+        mServingBowl = bowlObj.GetComponent<ServingBowl>();
+        if (mServingBowl != null)
         {
-            bowl.transform.parent = transform;            
+            mServingBowl.AddSalad(data);
+        }
+    }
+
+    private void ServeToCustomer()
+    {
+        if (mServingBowl == null)
+            return;
+
+        Customer customer = mCurrentCollider.GetComponent<Customer>();
+        if(customer != null)
+        {
+            customer.ServeSalad(mServingBowl);
+
+            Destroy(mServingBowl.gameObject);
+            mServingBowl = null;
         }
     }
 }

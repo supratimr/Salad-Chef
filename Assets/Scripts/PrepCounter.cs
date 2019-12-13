@@ -9,7 +9,6 @@ public class PrepCounter : MonoBehaviour, ICollider
     public ColliderType ColliderType;
     public ChoppingBoard ChopBoard;
     public ServingPlate ServingPlate;
-    public GameObject ServingBowl;
 
     public bool InUse { private set; get; }
     private bool mRedyToServe;
@@ -54,34 +53,18 @@ public class PrepCounter : MonoBehaviour, ICollider
             OnPepDone();
     }
 
-    public void TryPickup(Action<ServingBowl> callback)
+    public void TryPickup(Action<List<IngredientData>> callback)
     {
-        if(ServingPlate.ItemsInPlate.Count > 0)
+        if(ServingPlate.ItemsInPlate.Count > 0 && callback != null)
         {
-            GameObject bowlObj = Instantiate<GameObject>(ServingBowl, transform);
-            ServingBowl bowl = bowlObj.GetComponent<ServingBowl>();
-            if (bowl != null)
-            {
-                List<IngredientData> data = new List<IngredientData>();
-                for (int Idx = 0; Idx < ServingPlate.ItemsInPlate.Count; Idx++)
-                    data.Add(ServingPlate.ItemsInPlate[Idx].GetData());
+            List<IngredientData> data = new List<IngredientData>();
+            for (int Idx = 0; Idx < ServingPlate.ItemsInPlate.Count; Idx++)
+                data.Add(ServingPlate.ItemsInPlate[Idx].GetData());
 
-                bowl.AddSalad(data);
-
-                if (callback != null)
-                {
-                    callback(bowl);
-                }
-            }
-
+            callback(data);
             ServingPlate.Reset();
         }
-        else
-        {
-            if (callback != null)
-            {
-                callback(null);
-            }
-        }        
+        else if (callback != null)        
+            callback(null);            
     }
 }
