@@ -13,12 +13,12 @@ public class ServingPlate : MonoBehaviour
     private float mObjectPositionMultiplier = 0.2f;
 
     private IngredientData mCurrentData;
-    private List<IngredientData> mItemsInPlate = new List<IngredientData>();
+    public List<ActiveIngredientData> ItemsInPlate { private set; get; }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ItemsInPlate = new List<ActiveIngredientData>();
     }
 
     public void TransferToPlate(IngredientData data, Action callback)
@@ -26,16 +26,27 @@ public class ServingPlate : MonoBehaviour
         mCurrentData = data;
         OnTrasferringDone = callback;
 
-        mItemsInPlate.Add(data);
-
-        GameObject obj = Instantiate<GameObject>(mCurrentData.ChoppedObject, mSpawn.position * (mItemsInPlate.Count>0?mItemsInPlate.Count:1), Quaternion.identity,transform);
-        obj.transform.localPosition = Vector3.up * mObjectPositionMultiplier * (mItemsInPlate.Count > 1 ? mItemsInPlate.Count : 1);
+        GameObject obj = Instantiate<GameObject>(mCurrentData.ChoppedObject, mSpawn.position * (ItemsInPlate.Count>0?ItemsInPlate.Count:1), Quaternion.identity,transform);
+        obj.transform.localPosition = Vector3.up * mObjectPositionMultiplier * (ItemsInPlate.Count > 1 ? ItemsInPlate.Count : 1);
         obj.transform.localScale *= mObjectScaleMultiplier;
 
-        if(OnTrasferringDone != null)
+        ActiveIngredientData iData = new ActiveIngredientData(data, obj);
+        ItemsInPlate.Add(iData);
+
+        if (OnTrasferringDone != null)
         {
             OnTrasferringDone();
             OnTrasferringDone = null;
         }
+    }
+
+    public void Reset()
+    {
+        for (int Idx = 0; Idx < ItemsInPlate.Count; Idx++)
+            Destroy(ItemsInPlate[Idx].GetObject());
+
+        mCurrentData = null;
+        OnTrasferringDone = null;
+        ItemsInPlate.Clear();
     }
 }

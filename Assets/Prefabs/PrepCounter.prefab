@@ -48,7 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColliderType: 1
   ChopBoard: {fileID: 1077357217755869894}
-  ServingBowl: {fileID: 1286094671808864909}
+  ServingPlate: {fileID: 1286094671808864909}
+  ServingBowl: {fileID: 2846120601102203187, guid: 3f3939785c3f36c4680ac479637d3700,
+    type: 3}
 --- !u!65 &1741503692915917788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -136,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mSpawn: {fileID: 5482117000164039183}
   mObjectScaleMultiplier: 0.3
+  mObjectPositionMultiplier: 0.2
 --- !u!114 &1077357217755869894
 MonoBehaviour:
   m_ObjectHideFlags: 0

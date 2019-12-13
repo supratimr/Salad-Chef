@@ -2,30 +2,32 @@
 using System.Collections.Generic;
 
 
+public class ActiveIngredientData
+{
+    IngredientData Data;
+    GameObject Object;
+
+    public ActiveIngredientData(IngredientData data, GameObject obj)
+    {
+        Data = data;
+        Object = obj;
+    }
+
+    public GameObject GetObject()
+    {
+        return Object;
+    }
+
+    public IngredientData GetData()
+    {
+        return Data;
+    }
+}
+
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    public class ActiveIngredientData
-    {
-        IngredientData Data;
-        GameObject Object;
-
-        public ActiveIngredientData(IngredientData data, GameObject obj)
-        {
-            Data = data;
-            Object = obj;
-        }
-
-        public GameObject GetObject()
-        {
-            return Object;
-        }
-
-        public IngredientData GetData()
-        {
-            return Data;
-        }
-    }
+    
 
     [SerializeField]
     private string mPlayerName = string.Empty;
@@ -139,20 +141,18 @@ public class PlayerController : MonoBehaviour
 
     private void DropIngredient()
     {
-        if (mIngredientPicked.Count <= 0)
-            return;
-
         PrepCounter counter = mCurrentCollider.GetComponent<PrepCounter>();
 
-        if(counter != null && !counter.pInUse)
+        if(counter != null && !counter.InUse)
         {
-            counter.StartPrep(mIngredientPicked.Peek().GetData());
-
-            ActiveIngredientData data = mIngredientPicked.Dequeue();
-            Destroy(data.GetObject());
-
             if (mIngredientPicked.Count > 0)
             {
+                StopPlayerMovement(true);
+                counter.StartPrep(mIngredientPicked.Peek().GetData(), OnPrepDone);
+
+                ActiveIngredientData data = mIngredientPicked.Dequeue();
+                Destroy(data.GetObject());
+
                 int Idx = 1;
                 foreach (ActiveIngredientData iData in mIngredientPicked.ToArray())
                 {
@@ -160,9 +160,22 @@ public class PlayerController : MonoBehaviour
                     Idx += 1;
                 }
             }
-        }
+            else
+                counter.TryPickup(OnPickupDone);
+        }       
+    }
 
-       
+    private void OnPrepDone()
+    {
+        StopPlayerMovement(false);
+    }
+
+    private void OnPickupDone(ServingBowl bowl)
+    {
+        if(bowl != null)
+        {
+            bowl.transform.parent = transform;            
+        }
     }
 }
 

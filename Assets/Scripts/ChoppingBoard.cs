@@ -14,7 +14,7 @@ public class ChoppingBoard : MonoBehaviour
     private float mObjectScaleMultiplier = 3.0f;
 
 
-    public bool pInUse { private set; get; }
+    public bool InUse { private set; get; }
 
     private IngredientData mData;
     private GameObject mCurrentObject;
@@ -27,7 +27,7 @@ public class ChoppingBoard : MonoBehaviour
 
     public void StartChopping(IngredientData data, Action callback)
     {
-        pInUse = true;
+        InUse = true;
         mData = data;
         OnChoppingDone = callback;
 
@@ -59,7 +59,7 @@ public class ChoppingBoard : MonoBehaviour
         Destroy(mCurrentObject.gameObject);
         mCurrentObject = null;
         mData = null;
-        pInUse = false;
+        InUse = false;
 
         if (OnChoppingDone != null)
         {
