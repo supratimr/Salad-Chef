@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
         {
             return Object;
         }
+
+        public IngredientData GetData()
+        {
+            return Data;
+        }
     }
 
     [SerializeField]
@@ -137,18 +142,27 @@ public class PlayerController : MonoBehaviour
         if (mIngredientPicked.Count <= 0)
             return;
 
-        ActiveIngredientData data = mIngredientPicked.Dequeue();
-        Destroy(data.GetObject());
+        PrepCounter counter = mCurrentCollider.GetComponent<PrepCounter>();
 
-        if (mIngredientPicked.Count > 0)
-        {            
-           int Idx = 1;
-           foreach(ActiveIngredientData iData in mIngredientPicked.ToArray())
-           {
-               iData.GetObject().transform.localPosition = Vector3.up * mPickupPositionMultiplier * Idx;
-               Idx += 1;
-           }
+        if(counter != null && !counter.pInUse)
+        {
+            counter.StartPrep(mIngredientPicked.Peek().GetData());
+
+            ActiveIngredientData data = mIngredientPicked.Dequeue();
+            Destroy(data.GetObject());
+
+            if (mIngredientPicked.Count > 0)
+            {
+                int Idx = 1;
+                foreach (ActiveIngredientData iData in mIngredientPicked.ToArray())
+                {
+                    iData.GetObject().transform.localPosition = Vector3.up * mPickupPositionMultiplier * Idx;
+                    Idx += 1;
+                }
+            }
         }
+
+       
     }
 }
 

@@ -16,49 +16,57 @@ MonoBehaviour:
   - Type: 0
     DisplayName: Fresh Cucumber
     MainObject: {fileID: 100000, guid: d25f704bfb4c8014393d28319f51d9e9, type: 3}
-    ChoppedObject: {fileID: 0}
+    ChoppedObject: {fileID: 2511003147111210310, guid: 68292c11daf2fe943ae19f75360631d8,
+      type: 3}
     ScaleInUse: 5
     Icon: {fileID: 21300000, guid: 65d453b0ea67ed54a822c07496df1095, type: 3}
     ChopDuration: 10
   - Type: 1
     DisplayName: Yummy Tomato
     MainObject: {fileID: 100000, guid: 3c8726c7ba21fc64fbc2a8a1dd83be57, type: 3}
-    ChoppedObject: {fileID: 0}
+    ChoppedObject: {fileID: 2511003147111210310, guid: a1c05e2bca6906d43ad22aa0253b3878,
+      type: 3}
     ScaleInUse: 10
     Icon: {fileID: 21300000, guid: ce82d4ca6f8abc9418fb60d117f7f8f3, type: 3}
     ChopDuration: 10
   - Type: 2
     DisplayName: Wow Broccoli
     MainObject: {fileID: 100000, guid: 8f3f2404a883f5949a22eb1182951c9e, type: 3}
-    ChoppedObject: {fileID: 0}
+    ChoppedObject: {fileID: 2511003147111210310, guid: ec92b70e58c473d45ac4a6f8f6d89365,
+      type: 3}
     ScaleInUse: 10
     Icon: {fileID: 21300000, guid: a8c818cb1f4eb2e48a8f21690591f595, type: 3}
     ChopDuration: 10
   - Type: 3
     DisplayName: Best Carrot
     MainObject: {fileID: 100000, guid: 70e1fcdcfea29ed48bc3e9dc739bb684, type: 3}
-    ChoppedObject: {fileID: 0}
+    ChoppedObject: {fileID: 2511003147111210310, guid: 3865abbcbeb62c04d85212f0797a70e6,
+      type: 3}
     ScaleInUse: 5
     Icon: {fileID: 21300000, guid: 36bc3e8744e196648b7a969e8da5978a, type: 3}
     ChopDuration: 10
   - Type: 4
     DisplayName: Healthy Avocado
     MainObject: {fileID: 100000, guid: a77e30de2eb4e0249ae881ea7e042b0a, type: 3}
-    ChoppedObject: {fileID: 0}
+    ChoppedObject: {fileID: 2511003147111210310, guid: bbeb004a8b4d94e46a3f86bc017d1562,
+      type: 3}
     ScaleInUse: 10
     Icon: {fileID: 21300000, guid: 51fc3e64ff3a1b44e9a50e98a6e269ab, type: 3}
     ChopDuration: 10
   - Type: 5
     DisplayName: Juicy Apple
     MainObject: {fileID: 100000, guid: 094627802cc8b7849aed1eb1a64bbe75, type: 3}
-    ChoppedObject: {fileID: 0}
+    ChoppedObject: {fileID: 2511003147111210310, guid: 554fe7c0c535b214f9ec0ed7d282c656,
+      type: 3}
     ScaleInUse: 10
     Icon: {fileID: 21300000, guid: d18067d498287884c87b233b1f85c3fb, type: 3}
     ChopDuration: 10
   SaladData:
   - SaladName: Salad 01
     Icon: {fileID: 0}
+    Cost: 10
     IngredientList: 000000000100000003000000
   - SaladName: Salad 02
     Icon: {fileID: 0}
+    Cost: 10
     IngredientList: 050000000400000000000000
