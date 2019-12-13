@@ -9,6 +9,8 @@ public class ServingPlate : MonoBehaviour
     public Transform mSpawn;
     [SerializeField]
     private float mObjectScaleMultiplier = 0.3f;
+    [SerializeField]
+    private float mObjectPositionMultiplier = 0.2f;
 
     private IngredientData mCurrentData;
     private List<IngredientData> mItemsInPlate = new List<IngredientData>();
@@ -26,7 +28,8 @@ public class ServingPlate : MonoBehaviour
 
         mItemsInPlate.Add(data);
 
-        GameObject obj = Instantiate<GameObject>(mCurrentData.ChoppedObject, mSpawn.position, Quaternion.identity,transform);
+        GameObject obj = Instantiate<GameObject>(mCurrentData.ChoppedObject, mSpawn.position * (mItemsInPlate.Count>0?mItemsInPlate.Count:1), Quaternion.identity,transform);
+        obj.transform.localPosition = Vector3.up * mObjectPositionMultiplier * (mItemsInPlate.Count > 1 ? mItemsInPlate.Count : 1);
         obj.transform.localScale *= mObjectScaleMultiplier;
 
         if(OnTrasferringDone != null)
